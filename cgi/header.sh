@@ -40,13 +40,13 @@ cat <<EOF
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a id="link_profile" class="nav-link active" href="$PAGE_URL/profile">Main page</a>
+          <a id="link_profile" class="nav-link active" href="$PAGE_URL/index.sh">Main page</a>
         </li>
         <!--- <li class="nav-item">
-          <a id="link_trial" class="nav-link" href="$PAGE_URL/trial">Moja próba</a>
+          <a id="link_trial" class="nav-link" href="$PAGE_URL/index.sh">Some link 1</a>
         </li>
         <li class="nav-item">
-          <a id="link_appointments" class="nav-link" href="$PAGE_URL/appointments">Moje spotkania z kapitułą</a>
+          <a id="link_appointments" class="nav-link" href="$PAGE_URL/index.sh">Some link 2</a>
         </li> --->
       </ul>
       <ul class="navbar-nav mb-2 mb-md-0">
