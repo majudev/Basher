@@ -23,12 +23,44 @@ cat <<EOF
 EOF
 if [[ "$USER_LOGGED_IN" == true ]]; then
 echo "<p>It's nice to see you again, <b>$USER_LOGIN</b>.</p>"
+echo "<a class=\"btn btn-dark\" href=\"$PAGE_URL/post/new.sh\">Create new post</a>"
+fi
+if [[ "$USER_ADMIN" == true ]]; then
+echo "<p>You are an administrator, so you can do whatever you like.</p>"
 fi
 cat <<EOF
   <hr class="my-5">
 
   <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 687.068px;">
-    <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 0px;">
+EOF
+for id in `echo "select id from posts" | $DB_COMMAND | tail -n +2`; do
+	TITLE="`echo \"select title from posts where id='$id'\" | $DB_COMMAND | tail -n +2`"
+	CONTENT="`echo \"select content from posts where id='$id'\" | $DB_COMMAND | tail -n +2 | tr '~' '-' | sed -e 's~\(<brainfuck>\)\(.*\)\(<\/brainfuck>\)~[BRAINFUCK CODE]~g' | head -c 600`<i>...</i> <a href=\"$PAGE_URL/post/show.sh?$id\">Read more</a>"
+	LOGIN="`echo \"select login from posts where id='$id'\" | $DB_COMMAND | tail -n +2`"
+	TIME="`echo \"select time from posts where id='$id'\" | $DB_COMMAND | tail -n +2`"
+	ACTIONTAB=""
+	if [[ "$USER_LOGGED_IN" == true ]] && [[ "$LOGIN" == "$USER_LOGIN" ]] || [[ "$USER_ADMIN" == true ]]; then
+		ACTIONTAB="<!---<button class=\"btn btn-dark\">Edit</button>---> <a class=\"btn btn-danger\" href=\"$PAGE_URL/api/droppost.sh?$id\">Delete</a>"
+	fi
+	cat <<EOF
+    <div class="col-sm-6 col-lg-4 mb-4">
+      <div class="card p-3">
+        <figure class="p-3 mb-0">
+          <blockquote class="blockquote">
+            <p>$TITLE</p>
+          </blockquote>
+          <figcaption class="blockquote-footer mb-0 text-muted">
+            Posted by <cite title="$LOGIN">$LOGIN</cite> at $TIME
+          </figcaption>
+          <p>$CONTENT</p>
+          $ACTIONTAB
+        </figure>
+      </div>
+    </div>
+EOF
+done
+cat <<EOF
+    <!--- <div class="col-sm-6 col-lg-4 mb-4">
       <div class="card p-3">
         <figure class="p-3 mb-0">
           <blockquote class="blockquote">
@@ -40,7 +72,7 @@ cat <<EOF
         </figure>
       </div>
     </div>
-    <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 485.801px;">
+    <div class="col-sm-6 col-lg-4 mb-4">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Card title</h5>
@@ -48,7 +80,7 @@ cat <<EOF
           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
       </div>
-    </div>
+    </div> --->
   </div>
 
 </main>
