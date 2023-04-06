@@ -27,3 +27,7 @@ if [[ `sudo -u www-data gpg --list-secret-keys | wc -l` -eq 0 ]]; then
 EOF
 	sudo -u www-data gpg --batch --generate-key /recipe
 fi
+
+while true; do
+	sleep 100
+done

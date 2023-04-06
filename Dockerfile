@@ -21,4 +21,4 @@ RUN	a2enmod cgid && \
 	rm /etc/apache2/sites-enabled/* && \
 	a2ensite basher
 
-#CMD ["/usr/sbin/apachectl", "start"]
+CMD ["/app.sh"]
