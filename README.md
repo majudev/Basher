@@ -41,12 +41,6 @@ Please note the `!` character at the end of the brainfuck code. It means that co
 Since this program doesn't need any input it's the last character, however if your program needs any input data (ie it has any
 `,` characters) you need to supply the data after the `!` character, just as you would supply it onto standard input.
 
-## Demo
-
-Please visit [https://basher.majudev.net](https://basher.majudev.net)
-
-It gets cleaned every two weeks.
-
 ## Other
 
 Donations are welcome under:
